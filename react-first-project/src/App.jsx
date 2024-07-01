@@ -3,13 +3,10 @@ import './App.css'
 import Greetings from './components/greetings'
 
 class App extends React.Component {
-    getName() {
-        return 'Mahdi'
-    }
     render() {
         return (
             <>
-                <Greetings name={this.getName} message="Welcome" />
+                <Greetings message="Welcome" locale="BN-BD" />
             </>
         )
     }
