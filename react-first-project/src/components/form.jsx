@@ -1,33 +1,44 @@
 import React, { Component } from 'react';
-import Listandkeys from './listandkeys';
 
 export default class Form extends Component {
     state = {
         name: '',
         email: '',
+        phone: '',
         password: '',
-        formDataArray: [],
+        isChecked: false,
+        select: '',
     };
 
     handleChange = (e) => {
         this.setState({ [e.target.name]: e.target.value });
     };
+    handleChecked = (e) => {
+        this.setState({
+            isChecked: e.target.checked,
+        });
+    };
 
     handleSubmit = (e) => {
         e.preventDefault();
-        const dataObj = {
-            name: this.state.name,
-            email: this.state.email,
-            password: this.state.password,
-        };
-        this.setState({
-            formDataArray: [...this.state.formDataArray, dataObj],
-        });
-        this.setState({
-            name: '',
-            email: '',
-            password: '',
-        });
+        const { name, email, password } = this.state;
+        if (name && email && password) {
+            const dataObj = {
+                name: this.state.name,
+                email: this.state.email,
+                phone: this.state.phone,
+                password: this.state.password,
+            };
+            // console.log(dataObj);
+            this.props.sendUser(dataObj);
+            this.setState({
+                name: '',
+                email: '',
+                password: '',
+            });
+        } else {
+            alert('Input field was empty!!!');
+        }
     };
 
     render() {
@@ -50,19 +61,29 @@ export default class Form extends Component {
                         onChange={this.handleChange}
                     />
                     <input
+                        type="text"
+                        name="phone"
+                        placeholder="Enter Phone"
+                        value={this.state.phone}
+                        onChange={this.handleChange}
+                    />
+                    <input
                         type="password"
                         name="password"
                         placeholder="Enter Password"
                         value={this.state.password}
                         onChange={this.handleChange}
                     />
+                    <select
+                        name="select"
+                        value={this.state.select}
+                        onChange={this.handleChange}
+                    >
+                        <option value="HTML">HTML</option>
+                        <option value="CSS">CSS</option>
+                    </select>
                     <button type="submit">Submit</button>
                 </form>
-                <ul>
-                    {this.state.formDataArray.map((dataObj) => (
-                        <Listandkeys key={Math.random()} data={dataObj.name} />
-                    ))}
-                </ul>
             </>
         );
     }

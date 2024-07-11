@@ -7,7 +7,7 @@ form {
     width: 50%;
     text-align: center;
     border: 1px solid;
-    margin-inline: auto;
+    margin: 40px auto;
     padding: 40px;
 }
 input {

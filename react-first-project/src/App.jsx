@@ -1,36 +1,23 @@
 import React from 'react';
 import './App.css';
 import Form from './components/form';
-import Greetings from './components/greetings';
-import Listandkeys from './components/listandkeys';
+import ShowUsers from './components/showUsers';
 
 class App extends React.Component {
     state = {
-        database: [
-            {
-                task: 'Coffee',
-            },
-            {
-                task: 'Tea',
-            },
-            {
-                task: 'Juice',
-            },
-            {
-                task: 'Chicken Tikka',
-            },
-        ],
+        userData: [],
+    };
+    getUser = (user) => {
+        this.setState({
+            userData: [...this.state.userData, user],
+        });
     };
     render() {
+        // console.log(this.state.userData);
         return (
             <>
-                <Greetings message="Welcome" />
-                <ul>
-                    {this.state.database.map((dataObj) => (
-                        <Listandkeys key={Math.random()} data={dataObj.task} />
-                    ))}
-                </ul>
-                <Form />
+                <Form sendUser={this.getUser} />
+                <ShowUsers getUserCollection={this.state.userData} />
             </>
         );
     }
